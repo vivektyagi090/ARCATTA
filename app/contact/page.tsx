@@ -68,11 +68,11 @@ export default function Contact() {
                   />
                 </div>
                 <h3 className="text-2xl font-bold text-foreground mb-2">Founder & CEO</h3>
-                <p className="text-lg text-primary font-semibold mb-2">ARCATTA GROUP</p>
+                <p className="text-lg text-primary font-semibold mb-2">RAVINDRA RANE</p>
                 <p className="text-foreground/60 text-sm mb-4">20+ Years in Sustainable Products</p>
                 <div className="space-y-2 text-sm">
                   <p className="text-foreground/70">📧 owner@arcatta.com</p>
-                  <p className="text-foreground/70">📱 +91 XXXXXXXXXX</p>
+                  <p className="text-foreground/70">📱 +91 9869869522</p>
                   <p className="text-foreground/70">🌍 Direct inquiries welcome</p>
                 </div>
               </div>
@@ -209,7 +209,7 @@ export default function Contact() {
                 </div>
                 <h3 className="text-xl font-bold">Phone</h3>
               </div>
-              <p className="text-lg font-semibold mb-2">+91 XXXXXXXXXX</p>
+              <p className="text-lg font-semibold mb-2">+91 9869869522</p>
               <p className="text-sm text-primary-foreground/80">Available Mon-Fri, 9AM-6PM IST</p>
             </div>
 

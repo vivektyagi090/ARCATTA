@@ -1,18 +1,69 @@
+"use client"
+import { useEffect, useState } from "react"
 import Link from "next/link"
 import { ArrowRight, Leaf, Check, Zap, Globe } from "lucide-react"
-
+/* 🔹 HERO SLIDER DATA */
+const slides = [
+  {
+    image: "/hero1.jpg",
+    title: "Premium Eco-Friendly Products Made Simple",
+    description:
+      "Discover sustainable solutions crafted from natural materials. From coir fibre to areca leaf plates and biodegradable packaging.",
+  },
+  {
+    image: "/hero2.jpg",
+    title: "Sustainable Packaging for a Greener Future",
+    description:
+      "Biodegradable, compostable, and export-quality eco packaging for modern businesses.",
+  },
+  {
+    image: "/heroA.jpg",
+    title: "Natural Products Trusted Worldwide",
+    description:
+      "Handmade coir and areca products exported to 50+ countries with premium quality assurance.",
+  },
+ {
+  image: "/4.jpg",
+  title: "Sustainably Crafted for a Greener Tomorrow",
+  description:
+    "Eco-friendly coir and areca products made using traditional techniques and sustainable practices.",
+},
+{
+  image: "/5.jpg",
+  title: "Export-Quality Natural Solutions",
+  description:
+    "Premium biodegradable products manufactured to meet global quality and compliance standards.",
+},
+{
+  image: "/6.jpg",
+  title: "Nature-Inspired. Globally Trusted.",
+  description:
+    "Supplying natural, compostable products to businesses across 50+ countries worldwide.",
+},
+]
 export default function Home() {
+  const [current, setCurrent] = useState(0)
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrent((prev) => (prev + 1) % slides.length)
+    }, 4000)
+
+    return () => clearInterval(timer)
+  }, [])
+
+  const slide = slides[current]
   return (
     <main>
       {/* Hero Section with Image Background */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 pb-12">
-        <div className="absolute inset-0 -z-10">
+        <div className="absolute inset-0 -z-10 transition-all duration-700">
           <img
-            src="/hero-eco-products-sustainable-green-background.jpg"
-            alt="Eco-friendly sustainable products"
-            className="w-full h-full object-cover opacity-30"
+            src={slide.image}
+            alt="Eco-friendly products"
+            className="w-full h-full object-cover "
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/70 to-background/90"></div>
+          <div className="absolute inset-0  from-background/80 via-background/70 to-background/90"></div>
         </div>
 
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -21,15 +72,28 @@ export default function Home() {
               ✓ 100% Natural • Handmade • Eco-Certified
             </span>
           </div>
-
-          <h1 className="text-6xl sm:text-7xl font-bold text-foreground mb-6 leading-tight">
-            Premium Eco-Friendly Products Made Simple
+          <h1
+            key={slide.title}
+            className="text-6xl sm:text-7xl font-bold text-white mb-6 leading-tight
+             animate-slideUp"
+          >
+            {slide.title}
           </h1>
 
-          <p className="text-xl sm:text-2xl text-foreground/70 max-w-3xl mx-auto mb-12">
-            Discover sustainable solutions crafted from natural materials. From coir fibre to areca leaf plates and
-            biodegradable packaging—all 100% natural, handmade, and export-quality.
+          <p
+            key={slide.description}
+            className="text-xl sm:text-2xl text-white/70 max-w-3xl mx-auto mb-12
+             animate-slideUp delay-150"
+          >
+            {slide.description}
           </p>
+          {/* <h1 className="text-6xl sm:text-7xl font-bold text-foreground mb-6 leading-tight transition-all duration-500">
+            {slide.title}
+          </h1>
+
+          <p className="text-xl sm:text-2xl text-foreground/70 max-w-3xl mx-auto mb-12 transition-all duration-500">
+            {slide.description}
+          </p> */}
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
             <Link
@@ -40,26 +104,21 @@ export default function Home() {
             </Link>
             <Link
               href="/contact"
-              className="border-2 border-primary text-primary px-10 py-4 rounded-lg font-bold hover:bg-primary/10 transition-all"
+              className="border-2 border-white text-white px-10 py-4 rounded-lg font-bold hover:bg-primary/10 transition-all"
             >
               Get Wholesale Quote
             </Link>
           </div>
 
-          {/* Quick Stats */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center mb-12">
-            <div>
-              <div className="text-4xl font-bold text-primary mb-2">20+</div>
-              <p className="text-foreground/70">Years Industry Experience</p>
-            </div>
-            <div>
-              <div className="text-4xl font-bold text-primary mb-2">30+</div>
-              <p className="text-foreground/70">Premium Products</p>
-            </div>
-            <div>
-              <div className="text-4xl font-bold text-primary mb-2">50+</div>
-              <p className="text-foreground/70">Countries Exported</p>
-            </div>
+          {/* Slider Dots */}
+          <div className="flex justify-center gap-2">
+            {slides.map((_, i) => (
+              <span
+                key={i}
+                className={`h-3 w-3 rounded-full ${i === current ? "bg-primary" : "bg-primary/30"
+                  }`}
+              ></span>
+            ))}
           </div>
         </div>
       </section>
@@ -85,9 +144,9 @@ export default function Home() {
                 image: "/areca-palm-leaf-plates-bowls-disposable-eco-friend.jpg",
               },
               {
-                title: "Eco Packaging",
+                title: "Coco Peat",
                 desc: "Sustainable kraft and biodegradable materials",
-                image: "/kraft-paper-boxes-biodegradable-packaging-sustaina.jpg",
+                image: "/coco_peat.jpg",
               },
             ].map((cat, i) => (
               <Link key={i} href="/products" className="group">
@@ -109,7 +168,7 @@ export default function Home() {
           </div>
 
           {/* Additional Product Showcase */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {/* <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {[
               "/coir-fiber-products-natural-materials.jpg",
               "/areca-leaf-disposable-plates-eco-friendly.jpg",
@@ -125,7 +184,25 @@ export default function Home() {
                 <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors"></div>
               </div>
             ))}
+          </div> */}
+          {/* Quick Stats */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center mb-12">
+            <div>
+              <div className="text-4xl font-bold text-primary mb-2">20+</div>
+              <p className="text-foreground/70">Years Industry Experience</p>
+            </div>
+            <div>
+              <div className="text-4xl font-bold text-primary mb-2">30+</div>
+              <p className="text-foreground/70">Premium Products</p>
+            </div>
+            <div>
+              <div className="text-4xl font-bold text-primary mb-2">50+</div>
+              <p className="text-foreground/70">Countries Exported</p>
+            </div>
           </div>
+
+
+
         </div>
       </section>
 
@@ -186,7 +263,7 @@ export default function Home() {
             {[
               { category: "Coir", products: "Rope, Mats, Fibre, Grow Bags, Poles, Brushes" },
               { category: "Areca Leaf", products: "Plates, Bowls, Trays, Containers, Clamshells" },
-              { category: "Packaging", products: "Kraft Bags, Boxes, Liners, Eco Cushioning" },
+              { category: "Coco Peat", products: "Kraft Bags, Boxes, Liners, Eco Cushioning" },
               { category: "Custom Solutions", products: "Branding, Private Label, Bulk Orders" },
             ].map((item, i) => (
               <div

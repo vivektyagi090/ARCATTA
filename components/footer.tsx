@@ -15,7 +15,7 @@ export default function Footer() {
             <div className="space-y-3 text-sm">
               <div className="flex items-center gap-2">
                 <Phone size={16} />
-                <span>+91 XXXXXXXXXX</span>
+                <span>+91 9869869522</span>
               </div>
               <div className="flex items-center gap-2">
                 <Mail size={16} />
@@ -71,7 +71,7 @@ export default function Footer() {
               </li>
               <li>
                 <a href="#" className="hover:text-secondary transition-colors">
-                  Eco Packaging
+                  Coco Peat
                 </a>
               </li>
             </ul>
@@ -102,6 +102,17 @@ export default function Footer() {
 
         <div className="border-t border-white/20 pt-8 text-center text-sm text-primary-foreground/80">
           <p>&copy; 2025 ARCATTA GROUP. All rights reserved. | Eco-Friendly • Natural • Handmade</p>
+          <p className="mt-2 text-xs text-primary-foreground/50">
+            Designed & Developed by{" "}
+            <a
+              href="https://www.linkedin.com/in/vivek-tyagi-338278157"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white hover:text-primary-foreground transition-colors"
+            >
+              Vivek Tyagi
+            </a>
+          </p>
         </div>
       </div>
     </footer>
