@@ -69,9 +69,9 @@ export default function Contact() {
                 </div>
                 <h3 className="text-2xl font-bold text-foreground mb-2">Founder & CEO</h3>
                 <p className="text-lg text-primary font-semibold mb-2">RAVINDRA RANE</p>
-                <p className="text-foreground/60 text-sm mb-4">20+ Years in Sustainable Products</p>
+                <p className="text-foreground/60 text-sm mb-4">30+ Years in Sustainable Products</p>
                 <div className="space-y-2 text-sm">
-                  <p className="text-foreground/70">📧 owner@arcatta.com</p>
+                  <p className="text-foreground/70">📧 ravindrarane@arcattagroup.com</p>
                   <p className="text-foreground/70">📱 +91 9869869522</p>
                   <p className="text-foreground/70">🌍 Direct inquiries welcome</p>
                 </div>
@@ -84,11 +84,22 @@ export default function Contact() {
                     <Award size={24} className="text-primary" />
                     Professional Background
                   </h4>
-                  <p className="text-foreground/70 leading-relaxed">
+                  {/* <p className="text-foreground/70 leading-relaxed">
                     With over 20 years of dedicated experience in sustainable packaging and natural products, our
                     founder has been at the forefront of the eco-friendly revolution. Starting from humble beginnings,
                     they have built ARCATTA GROUP into an internationally recognized supplier of premium eco-friendly
                     solutions, trusted by businesses in over 50 countries worldwide.
+                  </p> */}
+                  <p className="text-foreground/70 leading-relaxed">
+                    Founder &amp; Managing Director – ARCATTAGROUP
+                    Ravindra H. Rane is a seasoned business leader, management accountant, and strategic
+                    finance professional with over 30 years of cross-industry leadership experience spanning
+                    manufacturing, exports, FMCG, logistics, supply chain, and global ERP-driven
+                    enterprises.
+                    As the Founder &amp; Managing Director of ARCATTAGROUP, Mr. Rane leads the
+                    organization with a clear vision:
+                    to deliver sustainable, eco-friendly natural products to global markets with
+                    uncompromising quality, ethical sourcing, and professional governance.
                   </p>
                 </div>
 
@@ -178,23 +189,28 @@ export default function Contact() {
               <ul className="space-y-3">
                 <li className="flex items-start gap-3">
                   <span className="text-secondary font-bold mt-1">•</span>
-                  <p className="text-foreground/70">Direct manufacturer - No middlemen</p>
+                  {/* <p className="text-foreground/70">Direct manufacturer - No middlemen</p> */}
+                  <p className="text-foreground/70">Export-ready quality standards</p>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-secondary font-bold mt-1">•</span>
-                  <p className="text-foreground/70">Competitive bulk pricing</p>
+                  {/* <p className="text-foreground/70">Competitive bulk pricing</p> */}
+                  <p className="text-foreground/70">Strong financial &amp; compliance discipline</p>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-secondary font-bold mt-1">•</span>
-                  <p className="text-foreground/70">Custom branding solutions</p>
+                  {/* <p className="text-foreground/70">Custom branding solutions</p> */}
+                  <p className="text-foreground/70">Ethical sourcing &amp; sustainability focus</p>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-secondary font-bold mt-1">•</span>
-                  <p className="text-foreground/70">Worldwide export capability</p>
+                  {/* <p className="text-foreground/70">Worldwide export capability</p> */}
+                  <p className="text-foreground/70">Transparent pricing &amp; documentation</p>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-secondary font-bold mt-1">•</span>
-                  <p className="text-foreground/70">100% quality guaranteed</p>
+                  {/* <p className="text-foreground/70">100% quality guaranteed</p> */}
+                  <p className="text-foreground/70">Long-term partnership mindset</p>
                 </li>
               </ul>
             </div>

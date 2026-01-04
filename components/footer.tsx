@@ -8,10 +8,15 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
           {/* Company Info */}
           <div>
-            <h3 className="font-bold text-lg mb-4">ARCATTA GROUP</h3>
-            <p className="text-primary-foreground/80 text-sm mb-4">
+            <img
+              src="/logo2.png"
+              alt="Arcatta Group Logo"
+              className="h-20 w-auto max-w-[200px] mb-4 object-contain"
+            />
+            {/* <h3 className="font-bold text-lg mb-4">ARCATTA GROUP</h3> */}
+            {/* <p className="text-primary-foreground/80 text-sm mb-4">
               Premium handmade eco-friendly products for a sustainable future.
-            </p>
+            </p> */}
             <div className="space-y-3 text-sm">
               <div className="flex items-center gap-2">
                 <Phone size={16} />

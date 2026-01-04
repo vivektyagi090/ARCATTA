@@ -11,11 +11,18 @@ export default function Navigation() {
     <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-secondary/30">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          <Link href="/" className="flex items-center gap-2">
+          {/* <Link href="/" className="flex items-center gap-2">
             <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
               <span className="text-white font-bold text-lg">A</span>
             </div>
             <span className="font-bold text-xl text-foreground hidden sm:inline">ARCATTA</span>
+          </Link> */}
+          <Link href="/" className="flex items-center gap-2">
+            <img
+              src="/logo2.png"
+              alt="Arcatta Group Logo"
+              className="h-50 w-auto max-w-[200px] mb-4 object-contain"
+            />
           </Link>
 
           {/* Desktop Navigation */}

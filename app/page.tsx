@@ -5,37 +5,38 @@ import { ArrowRight, Leaf, Check, Zap, Globe } from "lucide-react"
 /* 🔹 HERO SLIDER DATA */
 const slides = [
   {
-    image: "/hero1.jpg",
-    title: "Premium Eco-Friendly Products Made Simple",
+    image: "/h1.png",
+    // title: "Premium Eco-Friendly Products Made Simple",
     description:
       "Discover sustainable solutions crafted from natural materials. From coir fibre to areca leaf plates and biodegradable packaging.",
   },
   {
-    image: "/hero2.jpg",
-    title: "Sustainable Packaging for a Greener Future",
+    image: "/h2.png",
+    // title: "Sustainable Packaging for a Greener Future",
+     title: "Premium Eco-Friendly Products Made Simple",
     description:
       "Biodegradable, compostable, and export-quality eco packaging for modern businesses.",
   },
   {
-    image: "/heroA.jpg",
+    image: "/h3.png",
     title: "Natural Products Trusted Worldwide",
     description:
       "Handmade coir and areca products exported to 50+ countries with premium quality assurance.",
   },
  {
-  image: "/4.jpg",
+  image: "/h4.png",
   title: "Sustainably Crafted for a Greener Tomorrow",
   description:
     "Eco-friendly coir and areca products made using traditional techniques and sustainable practices.",
 },
 {
-  image: "/5.jpg",
+  image: "/h5.png",
   title: "Export-Quality Natural Solutions",
   description:
     "Premium biodegradable products manufactured to meet global quality and compliance standards.",
 },
 {
-  image: "/6.jpg",
+  image: "/h6.png",
   title: "Nature-Inspired. Globally Trusted.",
   description:
     "Supplying natural, compostable products to businesses across 50+ countries worldwide.",
@@ -136,7 +137,7 @@ export default function Home() {
               {
                 title: "Coir Products",
                 desc: "Natural coir rope, mats, and natural fibres",
-                image: "/natural-coir-fiber-rope-mats-eco-friendly.jpg",
+                image:  "/coir/all.png", 
               },
               {
                 title: "Areca Leaf Products",
@@ -144,9 +145,9 @@ export default function Home() {
                 image: "/areca-palm-leaf-plates-bowls-disposable-eco-friend.jpg",
               },
               {
-                title: "Coco Peat",
-                desc: "Sustainable kraft and biodegradable materials",
-                image: "/coco_peat.jpg",
+                title: "Cashew",
+                desc: "High-quality raw and processed cashew nuts straight from the farm.",
+                image: "/image015.jpg",
               },
             ].map((cat, i) => (
               <Link key={i} href="/products" className="group">
@@ -188,15 +189,15 @@ export default function Home() {
           {/* Quick Stats */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center mb-12">
             <div>
-              <div className="text-4xl font-bold text-primary mb-2">20+</div>
+              <div className="text-4xl font-bold text-primary mb-2">2+</div>
               <p className="text-foreground/70">Years Industry Experience</p>
             </div>
             <div>
-              <div className="text-4xl font-bold text-primary mb-2">30+</div>
+              <div className="text-4xl font-bold text-primary mb-2">10+</div>
               <p className="text-foreground/70">Premium Products</p>
             </div>
             <div>
-              <div className="text-4xl font-bold text-primary mb-2">50+</div>
+              <div className="text-4xl font-bold text-primary mb-2">5+</div>
               <p className="text-foreground/70">Countries Exported</p>
             </div>
           </div>
@@ -263,7 +264,7 @@ export default function Home() {
             {[
               { category: "Coir", products: "Rope, Mats, Fibre, Grow Bags, Poles, Brushes" },
               { category: "Areca Leaf", products: "Plates, Bowls, Trays, Containers, Clamshells" },
-              { category: "Coco Peat", products: "Kraft Bags, Boxes, Liners, Eco Cushioning" },
+              { category: "Cashew", products: "High-quality raw and processed cashew nuts straight from the farm." },
               { category: "Custom Solutions", products: "Branding, Private Label, Bulk Orders" },
             ].map((item, i) => (
               <div

@@ -28,10 +28,13 @@ export default function About() {
                 standards while protecting our planet.
               </p>
             </div>
-            <div className="bg-secondary/20 rounded-lg p-8 min-h-96 flex items-center justify-center">
+            <div className="bg-secondary/20 rounded-lg p-8 flex items-center justify-center">
               <div className="text-center">
-                <Leaf size={80} className="text-primary mx-auto mb-4" />
-                <p className="text-foreground/60">Product Image Placeholder</p>
+                <img
+                  src="/mission.png"
+                  alt="Our Mission"
+                  className="mx-auto max-w-full h-auto rounded"
+                />
               </div>
             </div>
           </div>
