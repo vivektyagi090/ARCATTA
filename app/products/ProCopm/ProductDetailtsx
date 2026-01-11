@@ -1,0 +1,65 @@
+// "use client";
+
+// import { useParams, useSearchParams } from "next/navigation";
+// import { productCategories } from "@/app/data/products";
+// import ProductDetailPage from "@/app/products/ProCopm/ProductDetailPage";
+// import { useState } from "react";
+
+// export default function ProductDetail() {
+//   const params = useParams();
+//   const searchParams = useSearchParams();
+//   const productId = params.id as string;
+//   const category = searchParams.get('category');
+  
+//   const [favoriteProducts, setFavoriteProducts] = useState<string[]>([]);
+
+//   // Find the product
+//   let product = null;
+//   if (category) {
+//     const categoryData = productCategories.find(c => c.id === category);
+//     if (categoryData) {
+//       product = categoryData.items.find(item => {
+//         const itemSlug = item.name.toLowerCase().replace(/[^\w\s]/g, '').replace(/\s+/g, '-');
+//         return itemSlug === productId || item.id === productId;
+//       });
+//     }
+//   }
+
+//   // If not found with category, search all products
+//   if (!product) {
+//     for (const category of productCategories) {
+//       product = category.items.find(item => {
+//         const itemSlug = item.name.toLowerCase().replace(/[^\w\s]/g, '').replace(/\s+/g, '-');
+//         return itemSlug === productId || item.id === productId;
+//       });
+//       if (product) break;
+//     }
+//   }
+
+//   if (!product) {
+//     return (
+//       <div className="min-h-screen flex items-center justify-center">
+//         <div className="text-center">
+//           <h1 className="text-2xl font-bold text-stone-700 mb-4">Product Not Found</h1>
+//           <a href="/products" className="text-green-600 hover:text-green-700 underline">
+//             Back to Products
+//           </a>
+//         </div>
+//       </div>
+//     );
+//   }
+
+//   return (
+//     <ProductDetailPage
+//       product={product}
+//       favoriteProducts={favoriteProducts}
+//       onToggleFavorite={(name) =>
+//         setFavoriteProducts((prev) =>
+//           prev.includes(name)
+//             ? prev.filter((n) => n !== name)
+//             : [...prev, name]
+//         )
+//       }
+//     />
+//   );
+// }

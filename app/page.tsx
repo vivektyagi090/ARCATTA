@@ -1,19 +1,22 @@
-"use client"
-import { useEffect, useState } from "react"
-import Link from "next/link"
-import { ArrowRight, Leaf, Check, Zap, Globe } from "lucide-react"
+"use client";
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import { ArrowRight, Leaf, Check, Zap, Globe } from "lucide-react";
+import ProductSection from "@/app/slider/ProductSection"; // Import the component
+import Benefits from "@/app/slider/Benefits";
+import ServiceBenefits from "./slider/ServiceBenefits";
 /* 🔹 HERO SLIDER DATA */
 const slides = [
   {
-    image: "/h1.png",
-    // title: "Premium Eco-Friendly Products Made Simple",
+    image: "https://images.pexels.com/photos/767240/pexels-photo-767240.jpeg?_gl=1*1fkw8if*_ga*Njc5ODE2ODY4LjE3NjgxMzgwNjU.*_ga_8JE65Q40S6*czE3NjgxNDg0MjEkbzMkZzEkdDE3NjgxNDg2NTQkajU0JGwwJGgw",
+     title: "Premium Eco-Friendly Products Made Simple",
     description:
       "Discover sustainable solutions crafted from natural materials. From coir fibre to areca leaf plates and biodegradable packaging.",
   },
   {
-    image: "/h2.png",
-    // title: "Sustainable Packaging for a Greener Future",
-     title: "Premium Eco-Friendly Products Made Simple",
+    image: "https://images.pexels.com/photos/8513292/pexels-photo-8513292.jpeg?_gl=1*o8wui1*_ga*Njc5ODE2ODY4LjE3NjgxMzgwNjU.*_ga_8JE65Q40S6*czE3NjgxNDg0MjEkbzMkZzEkdDE3NjgxNDg3ODEkajU5JGwwJGgw",
+     title: "Sustainable Packaging for a Greener Future",
+    //title: "Premium Eco-Friendly Products Made Simple",
     description:
       "Biodegradable, compostable, and export-quality eco packaging for modern businesses.",
   },
@@ -23,113 +26,127 @@ const slides = [
     description:
       "Handmade coir and areca products exported to 50+ countries with premium quality assurance.",
   },
- {
-  image: "/h4.png",
-  title: "Sustainably Crafted for a Greener Tomorrow",
-  description:
-    "Eco-friendly coir and areca products made using traditional techniques and sustainable practices.",
-},
-{
-  image: "/h5.png",
-  title: "Export-Quality Natural Solutions",
-  description:
-    "Premium biodegradable products manufactured to meet global quality and compliance standards.",
-},
-{
-  image: "/h6.png",
-  title: "Nature-Inspired. Globally Trusted.",
-  description:
-    "Supplying natural, compostable products to businesses across 50+ countries worldwide.",
-},
-]
+  {
+    image: "/h4.png",
+    title: "Sustainably Crafted for a Greener Tomorrow",
+    description:
+      "Eco-friendly coir and areca products made using traditional techniques and sustainable practices.",
+  },
+  {
+    image: "/h5.png",
+    title: "Export-Quality Natural Solutions",
+    description:
+      "Premium biodegradable products manufactured to meet global quality and compliance standards.",
+  },
+  {
+    image: "/h6.png",
+    title: "Nature-Inspired. Globally Trusted.",
+    description:
+      "Supplying natural, compostable products to businesses across 50+ countries worldwide.",
+  },
+];
 export default function Home() {
-  const [current, setCurrent] = useState(0)
+  const [current, setCurrent] = useState(0);
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrent((prev) => (prev + 1) % slides.length)
-    }, 4000)
+      setCurrent((prev) => (prev + 1) % slides.length);
+    }, 4000);
 
-    return () => clearInterval(timer)
-  }, [])
+    return () => clearInterval(timer);
+  }, []);
 
-  const slide = slides[current]
+  const slide = slides[current];
   return (
     <main>
       {/* Hero Section with Image Background */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 pb-12">
-        <div className="absolute inset-0 -z-10 transition-all duration-700">
+
+      <section className="relative min-h-[60vh] flex items-center overflow-hidden">
+        {/* BACKGROUND IMAGE - Full Screen */}
+        <div className="absolute inset-0 -z-10">
           <img
             src={slide.image}
             alt="Eco-friendly products"
-            className="w-full h-full object-cover "
+            className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0  from-background/80 via-background/70 to-background/90"></div>
+          {/* VIGNETTE: Darker on the left to make text pop, clear on the right */}
+          <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/20 to-transparent"></div>
         </div>
 
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="mb-8 inline-block">
-            <span className="bg-secondary/20 px-6 py-2 rounded-full text-primary font-semibold text-sm">
-              ✓ 100% Natural • Handmade • Eco-Certified
-            </span>
-          </div>
-          <h1
-            key={slide.title}
-            className="text-6xl sm:text-7xl font-bold text-white mb-6 leading-tight
-             animate-slideUp"
-          >
-            {slide.title}
-          </h1>
+        <div className="container mx-auto px-6 sm:px-12 lg:px-20">
+          {/* CONTENT BOX: Set to 1/2 width and aligned left */}
+          <div className="w-full lg:w-1/2 flex flex-col items-start text-left">
+            {/* THE HIGHLIGHT: A new horizontal accent style */}
 
-          <p
-            key={slide.description}
-            className="text-xl sm:text-2xl text-white/70 max-w-3xl mx-auto mb-12
-             animate-slideUp delay-150"
-          >
-            {slide.description}
-          </p>
-          {/* <h1 className="text-6xl sm:text-7xl font-bold text-foreground mb-6 leading-tight transition-all duration-500">
-            {slide.title}
-          </h1>
-
-          <p className="text-xl sm:text-2xl text-foreground/70 max-w-3xl mx-auto mb-12 transition-all duration-500">
-            {slide.description}
-          </p> */}
-
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
-            <Link
-              href="/products"
-              className="bg-primary text-primary-foreground px-10 py-4 rounded-lg font-bold hover:bg-primary/90 transition-all hover:shadow-lg flex items-center justify-center gap-2"
+            <div className="mb-8 inline-block">
+              <span className="bg-secondary/20 px-6 py-2 rounded-full text-primary font-semibold text-sm">
+                ✓ 100% Natural • Handmade • Eco-Certified
+              </span>
+            </div>
+            <h1
+              key={slide.title}
+              className="text-5xl sm:text-7xl font-extrabold text-white mb-6 leading-[1.1] animate-slideUp"
             >
-              Explore All Products <ArrowRight size={24} />
-            </Link>
-            <Link
-              href="/contact"
-              className="border-2 border-white text-white px-10 py-4 rounded-lg font-bold hover:bg-primary/10 transition-all"
-            >
-              Get Wholesale Quote
-            </Link>
-          </div>
+              {slide.title}
+            </h1>
 
-          {/* Slider Dots */}
-          <div className="flex justify-center gap-2">
-            {slides.map((_, i) => (
-              <span
-                key={i}
-                className={`h-3 w-3 rounded-full ${i === current ? "bg-primary" : "bg-primary/30"
+            <p
+              key={slide.description}
+              className="text-lg sm:text-xl text-white/80 max-w-lg mb-10 leading-relaxed animate-slideUp delay-150"
+            >
+              {slide.description}
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-4 mb-16">
+              <Link
+                href="/products"
+                className="bg-primary text-primary-foreground px-10 py-4 rounded-lg font-bold hover:bg-primary/90 transition-all hover:-translate-y-1 flex items-center justify-center gap-2"
+              >
+                Explore Products <ArrowRight size={20} />
+              </Link>
+              <Link
+                href="/contact"
+                className="backdrop-blur-md border border-white/40 text-white px-10 py-4 rounded-lg font-bold hover:bg-white/10 transition-all text-center"
+              >
+                Wholesale Quote
+              </Link>
+            </div>
+
+            {/* Modern Slider Indicators */}
+            <div className="flex items-end gap-3 h-8">
+              {slides.map((_, i) => (
+                <button
+                  key={i}
+                  className={`transition-all duration-300 rounded-full ${
+                    i === current
+                      ? "h-8 w-1.5 bg-primary"
+                      : "h-4 w-1.5 bg-white/30 hover:bg-white/50"
                   }`}
-              ></span>
-            ))}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
+      <div className="bg-white">
+        <ProductSection />
+      </div>
+      {/* 2. Benefits Section (The icons you just asked for) */}
+      <Benefits />
+      <ServiceBenefits />
+
+    
       {/* Featured Product Gallery */}
       <section className="py-20 bg-gradient-to-b from-white via-secondary/5 to-white">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl sm:text-5xl font-bold text-foreground mb-4">Our Product Categories</h2>
-            <p className="text-xl text-foreground/70">Handcrafted, natural, and 100% biodegradable solutions</p>
+            <h2 className="text-4xl sm:text-5xl font-bold text-foreground mb-4">
+              Our Product Categories
+            </h2>
+            <p className="text-xl text-foreground/70">
+              Handcrafted, natural, and 100% biodegradable solutions
+            </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
@@ -137,12 +154,13 @@ export default function Home() {
               {
                 title: "Coir Products",
                 desc: "Natural coir rope, mats, and natural fibres",
-                image:  "/coir/all.png", 
+                image: "/coir/all.png",
               },
               {
                 title: "Areca Leaf Products",
                 desc: "Eco-friendly plates, bowls, and containers",
-                image: "/areca-palm-leaf-plates-bowls-disposable-eco-friend.jpg",
+                image:
+                  "/areca-palm-leaf-plates-bowls-disposable-eco-friend.jpg",
               },
               {
                 title: "Cashew",
@@ -157,9 +175,11 @@ export default function Home() {
                     alt={cat.title}
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end justify-start p-6">
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent flex items-end justify-start p-6">
                     <div>
-                      <h3 className="text-2xl font-bold text-white mb-2">{cat.title}</h3>
+                      <h3 className="text-2xl font-bold text-white mb-2">
+                        {cat.title}
+                      </h3>
                       <p className="text-white/90">{cat.desc}</p>
                     </div>
                   </div>
@@ -186,7 +206,9 @@ export default function Home() {
               </div>
             ))}
           </div> */}
-          {/* Quick Stats */}
+         
+        {/* </div> */} 
+         {/* Quick Stats */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center mb-12">
             <div>
               <div className="text-4xl font-bold text-primary mb-2">2+</div>
@@ -201,16 +223,14 @@ export default function Home() {
               <p className="text-foreground/70">Countries Exported</p>
             </div>
           </div>
-
-
-
-        </div>
       </section>
 
       {/* Why Choose Us */}
       <section className="py-20 bg-primary text-primary-foreground">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl sm:text-5xl font-bold text-center mb-16">Why Choose ARCATTA GROUP?</h2>
+          <h2 className="text-4xl sm:text-5xl font-bold text-center mb-16">
+            Why Choose ARCATTA GROUP?
+          </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
             {[
@@ -245,7 +265,10 @@ export default function Home() {
                 desc: "Support local farmers, reduce waste, and contribute to a healthier planet.",
               },
             ].map((item, i) => (
-              <div key={i} className="bg-primary/20 backdrop-blur rounded-xl p-8 border border-primary-foreground/20">
+              <div
+                key={i}
+                className="bg-primary/20 backdrop-blur rounded-xl p-8 border border-primary-foreground/20"
+              >
                 <item.icon size={32} className="mb-4 text-secondary" />
                 <h3 className="text-xl font-bold mb-3">{item.title}</h3>
                 <p className="text-primary-foreground/90">{item.desc}</p>
@@ -258,20 +281,37 @@ export default function Home() {
       {/* Product Overview Grid */}
       <section className="py-20 bg-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-center mb-16 text-foreground">Our Complete Product Range</h2>
+          <h2 className="text-4xl font-bold text-center mb-16 text-foreground">
+            Our Complete Product Range
+          </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {[
-              { category: "Coir", products: "Rope, Mats, Fibre, Grow Bags, Poles, Brushes" },
-              { category: "Areca Leaf", products: "Plates, Bowls, Trays, Containers, Clamshells" },
-              { category: "Cashew", products: "High-quality raw and processed cashew nuts straight from the farm." },
-              { category: "Custom Solutions", products: "Branding, Private Label, Bulk Orders" },
+              {
+                category: "Coir",
+                products: "Rope, Mats, Fibre, Grow Bags, Poles, Brushes",
+              },
+              {
+                category: "Areca Leaf",
+                products: "Plates, Bowls, Trays, Containers, Clamshells",
+              },
+              {
+                category: "Cashew",
+                products:
+                  "High-quality raw and processed cashew nuts straight from the farm.",
+              },
+              {
+                category: "Custom Solutions",
+                products: "Branding, Private Label, Bulk Orders",
+              },
             ].map((item, i) => (
               <div
                 key={i}
                 className="bg-gradient-to-br from-secondary/10 to-secondary/5 rounded-xl p-8 border border-secondary/30 hover:border-primary transition-colors"
               >
-                <h3 className="text-2xl font-bold text-primary mb-3">{item.category}</h3>
+                <h3 className="text-2xl font-bold text-primary mb-3">
+                  {item.category}
+                </h3>
                 <p className="text-foreground/70">{item.products}</p>
               </div>
             ))}
@@ -282,9 +322,12 @@ export default function Home() {
       {/* CTA Section */}
       <section className="py-20 bg-gradient-to-r from-primary via-primary/90 to-primary text-primary-foreground">
         <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold mb-4">Ready to Transform Your Supply Chain?</h2>
+          <h2 className="text-4xl font-bold mb-4">
+            Ready to Transform Your Supply Chain?
+          </h2>
           <p className="text-xl mb-8 text-primary-foreground/90">
-            Join thousands of businesses worldwide using ARCATTA GROUP's premium eco-friendly solutions
+            Join thousands of businesses worldwide using ARCATTA GROUP's premium
+            eco-friendly solutions
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
@@ -303,5 +346,5 @@ export default function Home() {
         </div>
       </section>
     </main>
-  )
+  );
 }
