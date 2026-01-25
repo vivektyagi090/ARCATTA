@@ -19,7 +19,7 @@ const services = [
     description:
       "High-quality raw and processed cashew nuts straight from the farm.",
     link: "/products",
-    image: "/image015.jpg",
+    image: "/casu/bowl-with-cashew-wooden-table_92534-382.jpeg",
   },
 ];
 
