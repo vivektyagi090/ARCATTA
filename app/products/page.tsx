@@ -42,7 +42,7 @@ export default function ProductShowcase() {
   // We don't need these states anymore as we are routing to a new page
   // const [selectedProduct, setSelectedProduct] = useState<any>(null);
   // const [expandedGallery, setExpandedGallery] = useState(false);
-  // const [zoomImage, setZoomImage] = useState<string | null>(null);
+  //// const [zoomImage, setZoomImage] = useState<string | null>(null);
 
   const activeData =
     productCategories.find((c) => c.id === activeTab) || productCategories[0];
