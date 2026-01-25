@@ -1,4 +1,5 @@
-import { CheckCircle2 } from "lucide-react";
+import { CheckCircle2, Factory, Leaf, Sprout } from "lucide-react";
+import React, { useState } from "react";
 
 interface NavigationTabsProps {
   categories: Array<{ id: string; name: string }>;
@@ -6,30 +7,66 @@ interface NavigationTabsProps {
   setActiveTab: (id: string) => void;
 }
 
-export default function NavigationTabs({ 
-  categories, 
-  activeTab, 
-  setActiveTab 
+const getIcon = (id: string, active: boolean) => {
+  const className = `transition-all duration-300 ${active ? "scale-110" : ""}`;
+  switch (id) {
+    case "activeData": 
+      return <Factory size={18} className={className} />;
+    case "coir":
+      return <Factory size={18} className={className} />;
+    case "areca":
+      return <Leaf size={18} className={className} />;
+    case "cashew":
+      return <Sprout size={18} className={className} />;
+    default:
+      return <CheckCircle2 size={18} className={className} />;
+  }
+};
+
+export default function NavigationTabs({
+  categories,
+  activeTab,
+  setActiveTab,
 }: NavigationTabsProps) {
+  const [hoveredTab, setHoveredTab] = useState<string | null>(null);
+
   return (
-    <div className="sticky top-0 z-40 bg-white/80 backdrop-blur-lg border-b border-stone-200 shadow-sm">
-      <div className="max-w-7xl mx-auto px-4 overflow-x-auto no-scrollbar">
-        <div className="flex md:justify-center space-x-2 md:space-x-8 min-w-max py-4">
-          {categories.map((cat) => (
+    <div className="sticky top-4 z-40 flex justify-center w-full px-4 mb-8 pointer-events-none">
+      <div className="bg-white/80 backdrop-blur-xl border border-white/60 shadow-xl rounded-2xl md:rounded-full p-1.5 md:p-2 pointer-events-auto transition-all duration-500 hover:bg-white/95 hover:shadow-2xl flex items-center gap-1 w-full md:w-auto overflow-x-auto no-scrollbar ring-1 ring-black/5 snap-x snap-mandatory">
+        {categories.map((cat) => {
+          const isActive = activeTab === cat.id;
+          const isHovered = hoveredTab === cat.id;
+
+          return (
             <button
               key={cat.id}
               onClick={() => setActiveTab(cat.id)}
-              className={`flex items-center gap-2 px-6 py-2 rounded-full text-sm md:text-base font-semibold transition-all duration-300 ${
-                activeTab === cat.id
-                  ? "bg-green-700 text-white shadow-lg shadow-green-700/20"
-                  : "text-stone-500 hover:bg-stone-100 hover:text-stone-800"
+              onMouseEnter={() => setHoveredTab(cat.id)}
+              onMouseLeave={() => setHoveredTab(null)}
+              className={`snap-center relative px-4 md:px-6 py-2.5 rounded-xl md:rounded-full text-sm font-medium transition-all duration-300 flex-shrink-0 flex items-center gap-2 group outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${
+                isActive
+                  ? "text-white"
+                  : "text-gray-600 hover:text-gray-900 hover:bg-white/50"
               }`}
             >
-              {activeTab === cat.id && <CheckCircle2 size={16} />}
-              {cat.name}
+              {/* Background Pill for Active Tab */}
+              {isActive && (
+                <span className="absolute inset-0 bg-primary rounded-xl md:rounded-full shadow-md animate-in zoom-in-95 duration-200"></span>
+              )}
+
+              {/* Icon */}
+              <span className={`relative z-10 flex items-center gap-2 ${isActive ? "text-white" : ""}`}>
+                 {getIcon(cat.id, isActive)} 
+                 <span className={`whitespace-nowrap ${isActive ? "font-bold" : "font-medium"}`}>{cat.name}</span>
+              </span>
+
+              {/* Hover Glow Effect */}
+              {!isActive && isHovered && (
+                 <span className="absolute inset-0 bg-gray-100/50 rounded-xl md:rounded-full -z-10 animate-in fade-in duration-200"></span>
+              )}
             </button>
-          ))}
-        </div>
+          );
+        })}
       </div>
     </div>
   );

@@ -26,7 +26,7 @@ export default function CategoryHeader({ activeData }: CategoryHeaderProps) {
         </p>
 
         {/* Certifications */}
-        {activeData.certifications && (
+        {/* {activeData.certifications && (
           <div className="pt-4">
             <h4 className="text-sm font-semibold text-stone-500 uppercase tracking-wider mb-3">
               Certifications
@@ -42,7 +42,7 @@ export default function CategoryHeader({ activeData }: CategoryHeaderProps) {
               ))}
             </div>
           </div>
-        )}
+        )} */}
 
         {/* Export Markets */}
         {activeData.exportMarkets && (
