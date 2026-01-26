@@ -62,7 +62,7 @@ export default function Contact() {
               <div className="lg:col-span-1 text-center">
                 <div className="w-64 h-64 mx-auto mb-6 rounded-xl overflow-hidden shadow-lg border-4 border-primary/20">
                   <img
-                    src="/business-owner-professional-portrait.jpg"
+                    src="/owner/IMG-20260118-WA0036.jpg"
                     alt="Founder & CEO"
                     className="w-full h-full object-cover"
                   />

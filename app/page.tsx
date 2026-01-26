@@ -8,13 +8,13 @@ import ServiceBenefits from "./slider/ServiceBenefits";
 /* 🔹 HERO SLIDER DATA */
 const slides = [
   {
-    image: "https://images.pexels.com/photos/767240/pexels-photo-767240.jpeg?_gl=1*1fkw8if*_ga*Njc5ODE2ODY4LjE3NjgxMzgwNjU.*_ga_8JE65Q40S6*czE3NjgxNDg0MjEkbzMkZzEkdDE3NjgxNDg2NTQkajU0JGwwJGgw",
+    image: "/pexels-photo-767240.jpeg",
      title: "Premium Eco-Friendly Products Made Simple",
     description:
       "Discover sustainable solutions crafted from natural materials. From coir fibre to areca leaf plates and biodegradable packaging.",
   },
   {
-    image: "https://images.pexels.com/photos/8513292/pexels-photo-8513292.jpeg?_gl=1*o8wui1*_ga*Njc5ODE2ODY4LjE3NjgxMzgwNjU.*_ga_8JE65Q40S6*czE3NjgxNDg0MjEkbzMkZzEkdDE3NjgxNDg3ODEkajU5JGwwJGgw",
+    image: "/pexels-photo-8513292.jpeg  ",
      title: "Sustainable Packaging for a Greener Future",
     //title: "Premium Eco-Friendly Products Made Simple",
     description:
@@ -134,7 +134,7 @@ export default function Home() {
       </div>
       {/* 2. Benefits Section (The icons you just asked for) */}
       <Benefits />
-      <ServiceBenefits />
+      {/* <ServiceBenefits /> */}
 
     
       {/* Featured Product Gallery */}
