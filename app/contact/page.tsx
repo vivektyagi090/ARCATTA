@@ -1,34 +1,78 @@
-"use client"
+"use client";
 
-import type React from "react"
-import { useState } from "react"
-import { Mail, Phone, MapPin, Send, Briefcase, Users, Award } from "lucide-react"
+import { useState, useEffect, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
+import React from "react";
+import {
+  Mail,
+  Phone,
+  MapPin,
+  Send,
+  Briefcase,
+  Users,
+  Award,
+  Loader2,
+} from "lucide-react";
+import { submitEnquiry } from "./actions";
 
-export default function Contact() {
+function ContactContent() {
+  const searchParams = useSearchParams();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
     subject: "",
     message: "",
-  })
-  const [submitted, setSubmitted] = useState(false)
+  });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const { name, value } = e.target
+  useEffect(() => {
+    const product = searchParams.get("product");
+    const subject = searchParams.get("subject");
+    if (product || subject) {
+      setFormData(prev => ({
+        ...prev,
+        subject: subject || `Enquiry about ${product}`
+      }));
+    }
+  }, [searchParams]);
+
+  const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >,
+  ) => {
+    const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
       [name]: value,
-    }))
-  }
+    }));
+  };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    console.log("Form submitted:", formData)
-    setSubmitted(true)
-    setTimeout(() => setSubmitted(false), 3000)
-    setFormData({ name: "", email: "", phone: "", subject: "", message: "" })
-  }
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
+
+    try {
+      const result = await submitEnquiry(formData);
+
+      if (result.success) {
+        setSubmitted(true);
+        setTimeout(() => setSubmitted(false), 5000);
+        setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
+      } else {
+        setError(result.error || "Failed to send message. Please try again later.");
+      }
+    } catch (err) {
+      setError("An unexpected error occurred. Please check your connection.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <main>
@@ -44,9 +88,12 @@ export default function Contact() {
         </div>
 
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-20">
-          <h1 className="text-5xl sm:text-6xl font-bold text-foreground mb-6">Get in Touch With Us</h1>
+          <h1 className="text-5xl sm:text-6xl font-bold text-foreground mb-6">
+            Get in Touch With Us
+          </h1>
           <p className="text-xl text-foreground/70 max-w-3xl mx-auto">
-            Contact ARCATTA GROUP for wholesale inquiries, custom solutions, and export partnerships
+            Contact ARCATTA GROUP for wholesale inquiries, custom solutions, and
+            export partnerships
           </p>
         </div>
       </section>
@@ -55,7 +102,9 @@ export default function Contact() {
       <section className="py-20 bg-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-20 bg-gradient-to-br from-primary/10 via-secondary/5 to-background rounded-xl p-12 border border-primary/20">
-            <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-12 text-center">Meet Our Leadership</h2>
+            <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-12 text-center">
+              Meet Our Leadership
+            </h2>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
               {/* Owner Profile */}
@@ -67,13 +116,34 @@ export default function Contact() {
                     className="w-full h-full object-cover"
                   />
                 </div>
-                <h3 className="text-2xl font-bold text-foreground mb-2">Founder & CEO</h3>
-                <p className="text-lg text-primary font-semibold mb-2">RAVINDRA RANE</p>
-                <p className="text-foreground/60 text-sm mb-4">30+ Years in Sustainable Products</p>
+                <h3 className="text-2xl font-bold text-foreground mb-2">
+                  Founder & CEO
+                </h3>
+                <p className="text-lg text-primary font-semibold mb-2">
+                  RAVINDRA RANE
+                </p>
+                <p className="text-foreground/60 text-sm mb-4">
+                  30+ Years in Sustainable Products
+                </p>
                 <div className="space-y-2 text-sm">
-                  <p className="text-foreground/70">📧 ravindrarane@arcattagroup.com</p>
+                  <p className="text-foreground/70">
+                    <span className="mr-1">🔗</span>
+                    <a
+                      href="https://www.linkedin.com/in/your-profile-id"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:text-blue-600 transition-colors"
+                    >
+                      LinkedIn Profile
+                    </a>
+                  </p>
+                  <p className="text-foreground/70">
+                    📧 ravindrahrane@arcattagroup.com
+                  </p>
                   <p className="text-foreground/70">📱 +91 9869869522</p>
-                  <p className="text-foreground/70">🌍 Direct inquiries welcome</p>
+                  <p className="text-foreground/70">
+                    🌍 Direct inquiries welcome
+                  </p>
                 </div>
               </div>
 
@@ -91,15 +161,17 @@ export default function Contact() {
                     solutions, trusted by businesses in over 50 countries worldwide.
                   </p> */}
                   <p className="text-foreground/70 leading-relaxed">
-                    Founder &amp; Managing Director – ARCATTAGROUP
-                    Ravindra H. Rane is a seasoned business leader, management accountant, and strategic
-                    finance professional with over 30 years of cross-industry leadership experience spanning
-                    manufacturing, exports, FMCG, logistics, supply chain, and global ERP-driven
-                    enterprises.
-                    As the Founder &amp; Managing Director of ARCATTAGROUP, Mr. Rane leads the
-                    organization with a clear vision:
-                    to deliver sustainable, eco-friendly natural products to global markets with
-                    uncompromising quality, ethical sourcing, and professional governance.
+                    Founder &amp; Managing Director – ARCATTAGROUP Ravindra H.
+                    Rane is a seasoned business leader, management accountant,
+                    and strategic finance professional with over 30 years of
+                    cross-industry leadership experience spanning manufacturing,
+                    exports, FMCG, logistics, supply chain, and global
+                    ERP-driven enterprises. As the Founder &amp; Managing
+                    Director of ARCATTAGROUP, Mr. Rane leads the organization
+                    with a clear vision: to deliver sustainable, eco-friendly
+                    natural and organic farm products to global markets with
+                    uncompromising quality, ethical sourcing, and professional
+                    governance.
                   </p>
                 </div>
 
@@ -110,20 +182,36 @@ export default function Contact() {
                   </h4>
                   <div className="grid grid-cols-2 gap-3">
                     <div className="bg-white p-3 rounded-lg border border-secondary/30">
-                      <p className="text-foreground font-semibold">Sustainable Business</p>
-                      <p className="text-sm text-foreground/60">Building eco-conscious enterprises</p>
+                      <p className="text-foreground font-semibold">
+                        Sustainable Business
+                      </p>
+                      <p className="text-sm text-foreground/60">
+                        Building eco-conscious enterprises
+                      </p>
                     </div>
                     <div className="bg-white p-3 rounded-lg border border-secondary/30">
-                      <p className="text-foreground font-semibold">Product Innovation</p>
-                      <p className="text-sm text-foreground/60">Developing sustainable solutions</p>
+                      <p className="text-foreground font-semibold">
+                        Product Innovation
+                      </p>
+                      <p className="text-sm text-foreground/60">
+                        Developing sustainable solutions
+                      </p>
                     </div>
                     <div className="bg-white p-3 rounded-lg border border-secondary/30">
-                      <p className="text-foreground font-semibold">Export Management</p>
-                      <p className="text-sm text-foreground/60">Global supply chain expertise</p>
+                      <p className="text-foreground font-semibold">
+                        Export Management
+                      </p>
+                      <p className="text-sm text-foreground/60">
+                        Global supply chain expertise
+                      </p>
                     </div>
                     <div className="bg-white p-3 rounded-lg border border-secondary/30">
-                      <p className="text-foreground font-semibold">Quality Standards</p>
-                      <p className="text-sm text-foreground/60">ISO & international compliance</p>
+                      <p className="text-foreground font-semibold">
+                        Quality Standards
+                      </p>
+                      <p className="text-sm text-foreground/60">
+                        ISO & international compliance
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -135,20 +223,24 @@ export default function Contact() {
                   </h4>
                   <div className="bg-white p-4 rounded-lg border-l-4 border-primary">
                     <p className="text-foreground/70 mb-3">
-                      <strong>Vision:</strong> To make premium eco-friendly products accessible to businesses and
-                      consumers worldwide, creating a positive environmental impact through sustainable choices.
+                      <strong>Vision:</strong> To make premium eco-friendly
+                      products accessible to businesses and consumers worldwide,
+                      creating a positive environmental impact through
+                      sustainable choices.
                     </p>
                     <p className="text-foreground/70">
-                      <strong>Mission:</strong> Providing 100% natural, biodegradable products that support
-                      environmental sustainability while creating fair trade opportunities for local artisans and
-                      farmers.
+                      <strong>Mission:</strong> Providing 100% natural,
+                      biodegradable products that support environmental
+                      sustainability while creating fair trade opportunities for
+                      local artisans and farmers.
                     </p>
                   </div>
                 </div>
 
                 <div className="bg-gradient-to-r from-primary/20 to-secondary/20 p-4 rounded-lg">
                   <p className="text-foreground/70 text-sm">
-                    ✓ ISO Certified Manufacturer • ✓ Fair Trade Practices • ✓ 50+ Countries Served • ✓ Industry Awards
+                    ✓ ISO Certified Manufacturer • ✓ Fair Trade Practices • ✓
+                    50+ Countries Served • ✓ Industry Awards
                   </p>
                 </div>
               </div>
@@ -158,59 +250,85 @@ export default function Contact() {
           {/* Company Values */}
           <div className="mb-20 grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="bg-gradient-to-br from-primary/10 to-transparent rounded-xl p-8 border border-primary/20">
-              <h4 className="font-bold text-2xl text-foreground mb-4">Core Values</h4>
+              <h4 className="font-bold text-2xl text-foreground mb-4">
+                Core Values
+              </h4>
               <ul className="space-y-3">
                 <li className="flex items-start gap-3">
                   <span className="text-primary font-bold mt-1">✓</span>
                   <div>
-                    <p className="font-semibold text-foreground">Environmental Responsibility</p>
-                    <p className="text-sm text-foreground/60">Every product designed with planet-first thinking</p>
+                    <p className="font-semibold text-foreground">
+                      Environmental Responsibility
+                    </p>
+                    <p className="text-sm text-foreground/60">
+                      Every product designed with planet-first thinking
+                    </p>
                   </div>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-primary font-bold mt-1">✓</span>
                   <div>
-                    <p className="font-semibold text-foreground">Quality Excellence</p>
-                    <p className="text-sm text-foreground/60">Rigorous standards for every product</p>
+                    <p className="font-semibold text-foreground">
+                      Quality Excellence
+                    </p>
+                    <p className="text-sm text-foreground/60">
+                      Rigorous standards for every product
+                    </p>
                   </div>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-primary font-bold mt-1">✓</span>
                   <div>
-                    <p className="font-semibold text-foreground">Fair Trade Practices</p>
-                    <p className="text-sm text-foreground/60">Supporting communities and artisans</p>
+                    <p className="font-semibold text-foreground">
+                      Fair Trade Practices
+                    </p>
+                    <p className="text-sm text-foreground/60">
+                      Supporting communities and artisans
+                    </p>
                   </div>
                 </li>
               </ul>
             </div>
 
             <div className="bg-gradient-to-br from-secondary/10 to-transparent rounded-xl p-8 border border-secondary/20">
-              <h4 className="font-bold text-2xl text-foreground mb-4">Why Partner With Us</h4>
+              <h4 className="font-bold text-2xl text-foreground mb-4">
+                Why Partner With Us
+              </h4>
               <ul className="space-y-3">
                 <li className="flex items-start gap-3">
                   <span className="text-secondary font-bold mt-1">•</span>
                   {/* <p className="text-foreground/70">Direct manufacturer - No middlemen</p> */}
-                  <p className="text-foreground/70">Export-ready quality standards</p>
+                  <p className="text-foreground/70">
+                    Export-ready quality standards
+                  </p>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-secondary font-bold mt-1">•</span>
                   {/* <p className="text-foreground/70">Competitive bulk pricing</p> */}
-                  <p className="text-foreground/70">Strong financial &amp; compliance discipline</p>
+                  <p className="text-foreground/70">
+                    Strong financial &amp; compliance discipline
+                  </p>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-secondary font-bold mt-1">•</span>
                   {/* <p className="text-foreground/70">Custom branding solutions</p> */}
-                  <p className="text-foreground/70">Ethical sourcing &amp; sustainability focus</p>
+                  <p className="text-foreground/70">
+                    Ethical sourcing &amp; sustainability focus
+                  </p>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-secondary font-bold mt-1">•</span>
                   {/* <p className="text-foreground/70">Worldwide export capability</p> */}
-                  <p className="text-foreground/70">Transparent pricing &amp; documentation</p>
+                  <p className="text-foreground/70">
+                    Transparent pricing &amp; documentation
+                  </p>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-secondary font-bold mt-1">•</span>
                   {/* <p className="text-foreground/70">100% quality guaranteed</p> */}
-                  <p className="text-foreground/70">Long-term partnership mindset</p>
+                  <p className="text-foreground/70">
+                    Long-term partnership mindset
+                  </p>
                 </li>
               </ul>
             </div>
@@ -226,7 +344,9 @@ export default function Contact() {
                 <h3 className="text-xl font-bold">Phone</h3>
               </div>
               <p className="text-lg font-semibold mb-2">+91 9869869522</p>
-              <p className="text-sm text-primary-foreground/80">Available Mon-Fri, 9AM-6PM IST</p>
+              <p className="text-sm text-primary-foreground/80">
+                Available Mon-Fri, 9AM-6PM IST
+              </p>
             </div>
 
             <div className="bg-gradient-to-br from-secondary to-secondary/80 text-secondary-foreground rounded-xl p-8 shadow-lg">
@@ -237,7 +357,9 @@ export default function Contact() {
                 <h3 className="text-xl font-bold">Email</h3>
               </div>
               <p className="text-lg font-semibold mb-2">info@arcatta.com</p>
-              <p className="text-sm text-secondary-foreground/80">We'll respond within 24 hours</p>
+              <p className="text-sm text-secondary-foreground/80">
+                We'll respond within 24 hours
+              </p>
             </div>
 
             <div className="bg-gradient-to-br from-accent to-accent/80 text-accent-foreground rounded-xl p-8 shadow-lg">
@@ -248,28 +370,49 @@ export default function Contact() {
                 <h3 className="text-xl font-bold">Location</h3>
               </div>
               <p className="text-lg font-semibold mb-2">India</p>
-              <p className="text-sm text-accent-foreground/80">Global wholesale & export services</p>
+              <p className="text-sm text-accent-foreground/80">
+                Global wholesale & export services
+              </p>
             </div>
           </div>
 
           {/* Contact Form */}
           <div className="max-w-3xl mx-auto mb-20">
             <div className="bg-gradient-to-br from-secondary/10 to-background rounded-xl p-12 border border-primary/10">
-              <h2 className="text-3xl font-bold text-foreground mb-2">Send us a Message</h2>
+              <h2 className="text-3xl font-bold text-foreground mb-2">
+                Send us a Message
+              </h2>
               <p className="text-foreground/70 mb-8">
-                Whether you have a question or a product inquiry, feel free to reach out
+                Whether you have a question or a product inquiry, feel free to
+                reach out
               </p>
 
               {submitted && (
                 <div className="bg-green-100 border-2 border-green-500 text-green-700 px-6 py-4 rounded-lg mb-6">
-                  ✓ Thank you! We've received your message and will get back to you soon.
+                  ✓ Thank you! We've received your message and will get back to
+                  you soon.
+                </div>
+              )}
+
+              {error && (
+                <div className="bg-red-100 border-2 border-red-500 text-red-700 px-6 py-4 rounded-lg mb-6">
+                  ✕ {error}
+                </div>
+              )}
+
+              {error && (
+                <div className="bg-red-100 border-2 border-red-500 text-red-700 px-6 py-4 rounded-lg mb-6">
+                  ✕ {error}
                 </div>
               )}
 
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label htmlFor="name" className="block text-sm font-semibold text-foreground mb-2">
+                    <label
+                      htmlFor="name"
+                      className="block text-sm font-semibold text-foreground mb-2"
+                    >
                       Full Name *
                     </label>
                     <input
@@ -284,7 +427,10 @@ export default function Contact() {
                     />
                   </div>
                   <div>
-                    <label htmlFor="email" className="block text-sm font-semibold text-foreground mb-2">
+                    <label
+                      htmlFor="email"
+                      className="block text-sm font-semibold text-foreground mb-2"
+                    >
                       Email *
                     </label>
                     <input
@@ -302,7 +448,10 @@ export default function Contact() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label htmlFor="phone" className="block text-sm font-semibold text-foreground mb-2">
+                    <label
+                      htmlFor="phone"
+                      className="block text-sm font-semibold text-foreground mb-2"
+                    >
                       Phone Number
                     </label>
                     <input
@@ -316,7 +465,10 @@ export default function Contact() {
                     />
                   </div>
                   <div>
-                    <label htmlFor="subject" className="block text-sm font-semibold text-foreground mb-2">
+                    <label
+                      htmlFor="subject"
+                      className="block text-sm font-semibold text-foreground mb-2"
+                    >
                       Subject *
                     </label>
                     <select
@@ -332,14 +484,19 @@ export default function Contact() {
                       <option value="custom">Custom Branding</option>
                       <option value="export">Export Question</option>
                       <option value="bulk">Bulk Order</option>
-                      <option value="partnership">Partnership Opportunity</option>
+                      <option value="partnership">
+                        Partnership Opportunity
+                      </option>
                       <option value="general">General Inquiry</option>
                     </select>
                   </div>
                 </div>
 
                 <div>
-                  <label htmlFor="message" className="block text-sm font-semibold text-foreground mb-2">
+                  <label
+                    htmlFor="message"
+                    className="block text-sm font-semibold text-foreground mb-2"
+                  >
                     Message *
                   </label>
                   <textarea
@@ -356,10 +513,20 @@ export default function Contact() {
 
                 <button
                   type="submit"
-                  className="w-full bg-primary text-primary-foreground py-3 rounded-lg font-semibold hover:bg-primary/90 transition-all hover:shadow-lg flex items-center justify-center gap-2"
+                  disabled={loading}
+                  className="w-full bg-primary text-primary-foreground py-3 rounded-lg font-semibold hover:bg-primary/90 transition-all hover:shadow-lg flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  <Send size={20} />
-                  Send Message
+                  {loading ? (
+                    <>
+                      <Loader2 size={20} className="animate-spin" />
+                      Sending Enquiry...
+                    </>
+                  ) : (
+                    <>
+                      <Send size={20} />
+                      Send Message
+                    </>
+                  )}
                 </button>
               </form>
             </div>
@@ -367,7 +534,9 @@ export default function Contact() {
 
           {/* FAQ Section */}
           <div>
-            <h2 className="text-3xl font-bold text-foreground mb-12 text-center">Frequently Asked Questions</h2>
+            <h2 className="text-3xl font-bold text-foreground mb-12 text-center">
+              Frequently Asked Questions
+            </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {[
                 {
@@ -399,7 +568,9 @@ export default function Contact() {
                   key={i}
                   className="bg-white border-2 border-secondary/30 rounded-lg p-6 hover:border-primary hover:shadow-md transition-all"
                 >
-                  <h3 className="font-bold text-foreground mb-3 text-lg">{faq.q}</h3>
+                  <h3 className="font-bold text-foreground mb-3 text-lg">
+                    {faq.q}
+                  </h3>
                   <p className="text-foreground/70">{faq.a}</p>
                 </div>
               ))}
@@ -408,5 +579,13 @@ export default function Contact() {
         </div>
       </section>
     </main>
-  )
+  );
+}
+
+export default function Contact() {
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
+      <ContactContent />
+    </Suspense>
+  );
 }

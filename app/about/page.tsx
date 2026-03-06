@@ -21,7 +21,7 @@ export default function About() {
               <h2 className="text-4xl font-bold text-foreground mb-6">Our Mission</h2>
               <p className="text-lg text-foreground/70 leading-relaxed mb-6">
                 ARCATTA GROUP is a trusted manufacturer and exporter of handmade eco-friendly products made from natural
-                tree shell, coir fibre, and areca leaf. We supply premium biodegradable products globally.
+                tree shell, coir fibre, and areca leaf. We aim to  supply premium biodegradable products globally.
               </p>
               <p className="text-lg text-foreground/70 leading-relaxed">
                 Our commitment to sustainability and quality craftsmanship ensures that every product meets the highest
